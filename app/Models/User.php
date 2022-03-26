@@ -17,10 +17,21 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $append = ['status'];
+
+    public function getStatusAttribute(){
+        return $this->active ? 'Active' : 'Disabled';
+    }
+
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'active',
+        
+
     ];
 
     /**

@@ -204,6 +204,35 @@
 
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <p>
+                        Sections
+                        <i class="fas fa-angle-left right"></i>
+
+                    </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: none;">
+
+                        <li class="nav-item">
+                            <a href="{{route('sections.create')}}" class="nav-link">
+                                <i class="far fa-plus-square"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="{{route('sections.index')}}" class="nav-link">
+                                <i class="fas fa-list-ul"></i>
+
+                                <p>Index</p>
+                            </a>
+                        </li>
+
+                </ul>
+            </li>
 
 
                 <li class="nav-item">

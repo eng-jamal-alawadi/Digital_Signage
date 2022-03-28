@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SectionController extends Controller
 {
@@ -14,7 +15,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        $sections = Section::all();
+        return view('dashboard.sections.index', compact('sections'));
     }
 
     /**
@@ -24,7 +26,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.sections.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+        ]);
+        $section = new Section();
+        $section->name = $request->name;
+        $section->save();
+        return redirect()->route('sections.index')
+            ->with('success', 'Section created successfully')
+            ->with('type', 'success');
     }
 
     /**
@@ -57,7 +67,7 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+        return view('dashboard.sections.edit', compact('section'));
     }
 
     /**
@@ -69,7 +79,15 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+        ]);
+        $section->update([
+            'name' => $request->name,
+        ]);
+        $section->save();
+        return redirect()->route('sections.index')->with('success', 'Section updated successfully')
+            ->with('type', 'success');
     }
 
     /**
@@ -80,6 +98,17 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $isDeleted = $section->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'title' => 'Success', 'text' => 'Admin Deleted Successfuly', 'icon' => 'success'
+            ], Response::HTTP_OK);
+        } else {
+
+            return response()->json([
+                'title' => 'Failde', 'text' => 'Admin Delete Failde', 'icon' => 'error'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

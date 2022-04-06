@@ -178,6 +178,62 @@
             <li class="nav-item">
 
                 <a href="#" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <p>
+                        Buildings
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview" style="display: none;">
+
+                        <li class="nav-item">
+                            <a href="{{route('buildings.create')}}" class="nav-link">
+                                <i class="far fa-plus-square"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('buildings.index')}}" class="nav-link">
+                                <i class="fas fa-list-ul"></i>
+                                <p>Index</p>
+                            </a>
+                        </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+
+                <a href="#" class="nav-link">
+                    <i class="fas fa-list-ol"></i>
+                    <p>
+                        Floors
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview" style="display: none;">
+
+                        <li class="nav-item">
+                            <a href="{{route('floors.create')}}" class="nav-link">
+                                <i class="far fa-plus-square"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('floors.index')}}" class="nav-link">
+                                <i class="fas fa-list-ul"></i>
+                                <p>Index</p>
+                            </a>
+                        </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+
+                <a href="#" class="nav-link">
                     <i class="fas fa-map-marker-alt"></i>
                     <p>
                         Cities

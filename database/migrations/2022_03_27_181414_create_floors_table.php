@@ -16,11 +16,10 @@ class CreateFloorsTable extends Migration
         Schema::create('floors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description');
             $table->foreignId('building_id');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
-            $table->foreignId('raspberry_pi_id');
-            $table->foreign('raspberry_pi_id')->references('id')->on('raspberry_pis')->onDelete('cascade');
-            
+            $table->string('raspberry_pi_ip_address');
             $table->timestamps();
         });
     }

@@ -43,7 +43,7 @@
                                 <td>{{ $section->name }}</td>
                                 <td>{{ $section->created_at }}</td>
                                 <td> {{ $section->updated_at }} </td>
-                                <td>
+                                <td class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <a href="{{ route('sections.edit', $section->id) }}" class="btn btn-info">
                                             <i class="far fa-edit"></i>

@@ -1,25 +1,26 @@
 @extends('dashboard.master1')
-@section('title', 'Admins')
-@section('big_title', 'Admins Page')
-@section('main_page', 'Admins')
-@section('sub_page', 'index')
+@section('title', 'Floors')
+@section('big_title', 'Floors Page')
+@section('main_page', 'Building Floors')
+@section('sub_page', 'Index')
 
 
 @section('content')
     <div class="col-12">
         <div class="card">
             @if (session('success'))
-                <div class="alert alert-{{ session('type') }} alert-dismissible fade show">
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Alert!</h5>
                     {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
             @endif
 
             <div class="card-header">
-                <h3 class="card-title">All Admins</h3>
+                <h3 class="card-title"><b>{{$building->name }}</b>  Floors</h3>
 
+                <a href="{{ route('floors.create') }}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Add New Floor</a>
+                 <a href="{{ route('buildings.index') }}" class="btn btn-info float-right mr-2">Back</a>
 
             </div>
             <!-- /.card-header -->
@@ -30,48 +31,42 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            {{-- <th>Roles</th> --}}
+                            <th>Ip Address</th>
+                            <th>Description</th>
+                            <th>Building</th>
                             <th>Created at</th>
                             <th>Updated at</th>
                             <th>Settings</th>
+
+
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($admins as $admin)
+                        @forelse ($buildingFloors as $buildingFloor)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td  > <span
-                                        class="badge @if ($admin->active) bg-success @else bg-danger @endif d-flex justify-content-center">{{ $admin->status }}</span>
-                                </td>
-
-                                <td>{{ $admin->created_at }}</td>
-                                <td> {{ $admin->updated_at }} </td>
-                                <td class="d-flex justify-content-center">
+                                <td>{{ $buildingFloor->id }}</td>
+                                <td>{{ $buildingFloor->name }}</td>
+                                <td>{{ $buildingFloor->raspberry_pi_ip_address }}</td>
+                                <td>{{ $buildingFloor->description }}</td>
+                                <td>{{ $buildingFloor->building->name }}</td>
+                                <td>{{ $buildingFloor->created_at }}</td>
+                                <td> {{ $buildingFloor->updated_at }} </td>
+                                <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-info">
+                                        {{-- <a href="{{ route('building.floors.edit', $buildingFloor->id) }}" class="btn btn-info"> --}}
+                                        <a href="#" class="btn btn-info">
                                             <i class="far fa-edit"></i>
                                         </a>
-
                                         <a href="#" class="btn btn-danger"
-                                            onclick="confirmDestroy({{ $admin->id }} , this)">
+                                            onclick="confirmDestroy({{ $buildingFloor->id }} , this)">
                                             <i class="far fa-trash-alt"></i>
                                         </a>
-
-
                                     </div>
                                 </td>
-                            @empty
+                            </tr>
+                        @empty
                             <tr>No data Found</tr>
                         @endforelse
-                        </tr>
-
-
-
                     </tbody>
                 </table>
             </div>
@@ -98,13 +93,15 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     destroy(id, referance);
+
+
                 }
             })
 
         }
 
         function destroy(id, referance) {
-            axios.delete('/admins/' + id)
+            axios.delete('/floors/' + id)
                 .then(function(response) {
                     // handle success
                     console.log(response);
@@ -129,6 +126,5 @@
                 timer: 1500
             })
         }
-
     </script>
 @endsection

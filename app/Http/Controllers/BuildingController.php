@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Building;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BuildingController extends Controller
 {
@@ -14,7 +15,10 @@ class BuildingController extends Controller
      */
     public function index()
     {
-        //
+
+        $buildings = Building::withCount('floors')->get(); 
+
+        return view('dashboard.buildings.index', compact('buildings'));
     }
 
     /**
@@ -24,7 +28,7 @@ class BuildingController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.buildings.create');
     }
 
     /**
@@ -35,7 +39,15 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $building = new Building();
+        $building->name = $request->name;
+        $building->save();
+        return redirect()->route('buildings.index')->with('success', 'Building created successfully')
+        ->with('type', 'success');
     }
 
     /**
@@ -57,7 +69,7 @@ class BuildingController extends Controller
      */
     public function edit(Building $building)
     {
-        //
+        return view('dashboard.buildings.edit', compact('building'));
     }
 
     /**
@@ -69,7 +81,15 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $building ->update([
+            'name' => $request->name,
+        ]);
+        $building->save();
+        return redirect()->route('buildings.index')->with('success', 'Building updated successfully')
+        ->with('type', 'success');
     }
 
     /**
@@ -80,6 +100,19 @@ class BuildingController extends Controller
      */
     public function destroy(Building $building)
     {
-        //
+        $isDeleted = $building->delete();
+        if($isDeleted){
+            return response()->json([
+                'title' => 'success',
+                'text' => 'Building Deleted Successfuly',
+                'icon'=> 'success'
+            ],Response::HTTP_OK);
+        }else{
+            return response()->json([
+                'title' => 'error',
+                'text' => ' Building Not Deleted',
+                'icon'=> 'error'
+            ],Response::HTTP_BAD_REQUEST);
+        }
     }
 }

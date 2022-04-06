@@ -1,24 +1,23 @@
 @extends('dashboard.master1')
-@section('title', 'Admins')
-@section('big_title', 'Admins Page')
-@section('main_page', 'Admins')
-@section('sub_page', 'index')
+@section('title', 'Buildings')
+@section('big_title', 'Buildings Page')
+@section('main_page', 'Buildings')
+@section('sub_page', 'Index')
 
 
 @section('content')
     <div class="col-12">
         <div class="card">
             @if (session('success'))
-                <div class="alert alert-{{ session('type') }} alert-dismissible fade show">
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Alert!</h5>
                     {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
             @endif
-
+                @include('errors.errors')
             <div class="card-header">
-                <h3 class="card-title">All Admins</h3>
+                <h3 class="card-title">All Buildings</h3>
 
 
             </div>
@@ -30,46 +29,41 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            {{-- <th>Roles</th> --}}
+                            <th>Floors</th>
                             <th>Created at</th>
                             <th>Updated at</th>
                             <th>Settings</th>
+
+
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($admins as $admin)
+                        @forelse ($buildings as $building)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $building->name }}</td>
+                                <td> <a href="{{ route('buildings.floors.index', $building->id) }}" class="btn btn-info d-flex justify-content-center ">Floors({{$building->floors_count}}) </a></td>
 
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td  > <span
-                                        class="badge @if ($admin->active) bg-success @else bg-danger @endif d-flex justify-content-center">{{ $admin->status }}</span>
-                                </td>
-
-                                <td>{{ $admin->created_at }}</td>
-                                <td> {{ $admin->updated_at }} </td>
+                                <td>{{ $building->created_at }}</td>
+                                <td> {{ $building->updated_at }} </td>
                                 <td class="d-flex justify-content-center">
                                     <div class="btn-group">
-                                        <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-info">
+                                        <a href="{{ route('buildings.edit', $building->id) }}" class="btn btn-info">
                                             <i class="far fa-edit"></i>
                                         </a>
-
                                         <a href="#" class="btn btn-danger"
-                                            onclick="confirmDestroy({{ $admin->id }} , this)">
+                                            onclick="confirmDestroy({{ $building->id }} , this)">
                                             <i class="far fa-trash-alt"></i>
                                         </a>
 
 
                                     </div>
                                 </td>
-                            @empty
+
+                            </tr>
+                        @empty
                             <tr>No data Found</tr>
                         @endforelse
-                        </tr>
-
 
 
                     </tbody>
@@ -98,13 +92,15 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     destroy(id, referance);
+
+
                 }
             })
 
         }
 
         function destroy(id, referance) {
-            axios.delete('/admins/' + id)
+            axios.delete('/buildings/' + id)
                 .then(function(response) {
                     // handle success
                     console.log(response);
@@ -129,6 +125,5 @@
                 timer: 1500
             })
         }
-
     </script>
 @endsection

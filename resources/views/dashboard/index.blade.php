@@ -4,6 +4,7 @@
 @section('main_page','Home')
 @section('sub_page','Home')
 @section('content')
+
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">

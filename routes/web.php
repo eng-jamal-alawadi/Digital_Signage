@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -16,6 +17,7 @@ Route::get('/index', function () {
 
 Route::resource('admins', AdminController::class);
 Route::resource('sections', SectionController::class);
+Route::resource('students', StudentController::class);
 
 Auth::routes();
 

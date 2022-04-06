@@ -1,83 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
 
-@extends('dashboard.morasoft.master2')
-@section('css')
-<!-- Sidemenu-respoansive-tabs css -->
-<link href="{{asset('assets-moraSoft/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css')}}" rel="stylesheet">
-@endsection
-@section('content')
-		<div class="container-fluid">
-			<div class="row no-gutter">
-				<!-- The image half -->
-				<!-- The content half -->
-				<div class="col-md-6 col-lg-6 col-xl-5 bg-white">
-					<div class="login d-flex align-items-center py-2">
-						<!-- Demo content-->
-						<div class="container p-0">
-							<div class="row">
-								<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
-									<div class="card-sigin">
-										<div class="mb-5 d-flex"> <a href="{{ url('/' . $page='Home') }}"><img src="{{asset('assets-moraSoft/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a><h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Digital <span>Sign</span>age</h1></div>
-										<div class="card-sigin">
-											<div class="main-signup-header">
-												<h2>Welcome in Digital Signage </h2>
-												<h5 class="font-weight-semibold mb-4"> Login</h5>
-                                                <form method="POST" action="{{ route('login') }}">
-                                                 @csrf
-													<div class="form-group">
-													<label>Email</label>
-                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                                     @error('email')
-                                                     <span class="invalid-feedback" role="alert">
-                                                     <strong>{{ $message }}</strong>
-                                                     </span>
-                                                     @enderror
-													</div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Digital Sign age | Log in </title>
 
-												 <div class="form-group">
-											 	 <label>Password</label>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('dashboard/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset('dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/css/adminlte.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('dashboard/plugins/toastr/toastr.min.css') }}">
+</head>
 
-                                                  <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1">Digital <span>Sign</span>age <img
+                        src="{{ asset('assets-moraSoft/img/brand/favicon.png') }}" class="h1" alt="logo"></a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
 
-                                                  @error('password')
-                                                  <span class="invalid-feedback" role="alert">
-                                                  <strong>{{ $message }}</strong>
-                                                  </span>
-												  @enderror
-                                                  <div class="form-group row">
-                                                      <div class="col-md-6 offset-md-4">
-                                                           <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <label class="form-check-label" for="remember">
-                                                                       {{ __('Remember me') }}
-                                                                </label>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-												  </div>
-                                                    <button type="submit" class="btn btn-main-primary btn-block">
-                                                    {{ __('Login') }}
-                                                    </button>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div><!-- End -->
-					</div>
-				</div><!-- End -->
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror" name="password" required
+                            autocomplete="current-password">
 
-                <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
-					<div class="row wd-100p mx-auto text-center">
-						<div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-							<img src="{{asset('assets-moraSoft/img/media/login.png')}}" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
-						</div>
-					</div>
-				</div>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            {{-- <button type="submit" class="btn btn-main-primary btn-block">
+                        Login
+                        </button> --}}
+                            <button type="submit" class="btn btn-primary btn-block"> Login</button>
+                        </div>
 
-			</div>
-		</div>
-@endsection
+                        <!-- /.col -->
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-link px-0" href="{{ route('password.request') }}">
+                            I forgot my password
+                        </a><br>
+                    </div>
+                </form>
 
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.login-box -->
 
+    <!-- jQuery -->
+    <script src="{{ asset('dashboard/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('dashboard/dist/js/adminlte.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('dashboard/plugins/toastr/toastr.min.js') }}"></script>
+
+</body>
+
+</html>
